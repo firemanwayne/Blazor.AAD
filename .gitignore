@@ -3,3 +3,7 @@
 ################################################################################
 
 /.vs
+/src/Api/Properties
+/src/Client/bin/Debug/net5.0
+/src/Client/obj
+/src/Client/Properties
