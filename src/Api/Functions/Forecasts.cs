@@ -1,31 +1,48 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Azure.Functions.Worker;
+using Microsoft.Azure.WebJobs;
+using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Extensions.Logging;
+using Shared.Models;
+using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace Api.Functions
+namespace Api
 {
-    public static class Forecasts
-    {
-        [Function("Forecasts")]
-        public static async Task<IActionResult> Run([HttpTrigger(AuthorizationLevel.Function, "get", Route = null)] HttpRequest req, ILogger log)
+    public class Forecasts
+    {     
+        [FunctionName("Forecasts")]
+        public static async Task<IActionResult> Run(
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "forecasts")] HttpRequest req,
+            ILogger log)
         {
-            log.LogInformation("C# HTTP trigger function processed a request.");
+            try
+            {
+                if (File.Exists("sample-data/weather.json"))
+                {
+                    var stream = File.OpenRead("sample-data/weather.json");
 
-            var tenantId = (string)req.Query["tenantId"];
+                    var data = await JsonSerializer.DeserializeAsync<IEnumerable<WeatherForecast>>(stream, new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true,
+                        IgnoreNullValues = false,
+                        AllowTrailingCommas = true
+                    });
 
-            string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
-            dynamic data = JsonSerializer.Deserialize<string>(requestBody);
-            tenantId ??= data?.name;
-
-            string responseMessage = string.IsNullOrEmpty(tenantId)
-                ? "This HTTP triggered function executed successfully. Pass a tenantId in the query string or in the request body for a personalized response."
-                : $"Hello, {tenantId}. This HTTP triggered function executed successfully.";
-
-            return new OkObjectResult(responseMessage);
-        }
+                    if (data == null)
+                        return new BadRequestResult();
+                    else
+                        return new OkObjectResult(data);
+                }
+                else
+                    return new NotFoundResult();
+            }
+            catch
+            {
+                return new BadRequestResult();
+            }
+        } 
     }
 }
