@@ -16,10 +16,10 @@ namespace Client
             builder.RootComponents.Add<App>("#app");
 
             builder.Services.AddHttpClient(HttpConstants.ApiClientName, c
-                => c.BaseAddress = new Uri("http://localhost:7071"));
+                => c.BaseAddress = new Uri(builder.HostEnvironment.IsDevelopment() ? "http://localhost:7071" : builder.HostEnvironment.BaseAddress));
 
             builder.Services.AddHttpClient(HttpConstants.ApiClientName, c
-                => c.BaseAddress = new Uri("http://localhost:7071"))
+                => c.BaseAddress = new Uri(builder.HostEnvironment.IsDevelopment() ? "http://localhost:7071" : builder.HostEnvironment.BaseAddress))
                 .AddHttpMessageHandler<BaseAddressAuthorizationMessageHandler>();
 
             builder.Services.AddMsalAuthentication(options =>
