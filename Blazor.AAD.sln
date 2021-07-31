@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Client", "src\Client\Client
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Api", "src\Api\Api.csproj", "{6ADB574C-2B38-413B-BEEB-819CA24991DE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared", "src\Shared\Shared.csproj", "{67692D9F-7B02-4FF3-B540-F6FF908EBC9F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{6ADB574C-2B38-413B-BEEB-819CA24991DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6ADB574C-2B38-413B-BEEB-819CA24991DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6ADB574C-2B38-413B-BEEB-819CA24991DE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{67692D9F-7B02-4FF3-B540-F6FF908EBC9F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{67692D9F-7B02-4FF3-B540-F6FF908EBC9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{67692D9F-7B02-4FF3-B540-F6FF908EBC9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{67692D9F-7B02-4FF3-B540-F6FF908EBC9F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
